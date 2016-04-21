@@ -3,9 +3,9 @@
 namespace Laasti\GregwarImageProvider;
 
 use Gregwar\Image\Image;
-use League\Container\ServiceProvider;
+use League\Container\ServiceProvider\AbstractServiceProvider;
 
-class GregwarImageProvider extends ServiceProvider
+class GregwarImageProvider extends AbstractServiceProvider
 {
 
     protected $provides = [
@@ -16,8 +16,8 @@ class GregwarImageProvider extends ServiceProvider
     {
         $di = $this->getContainer();
         $config = [];
-        if (isset($di['config.gregwarImage']) && is_array($di['config.gregwarImage'])) {
-            $config = $di['config.gregwarImage'];
+        if (isset($di->get('config')['gregwarImage']) && is_array($di->get('config')['gregwarImage'])) {
+            $config = $di->get('config')['gregwarImage'];
         }
 
         $di->add('Gregwar\Image\Image', function($filepath = null, $w = null, $h = null) use ($config) {
